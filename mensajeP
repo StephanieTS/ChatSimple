@@ -1,0 +1,81 @@
+package Vista;
+
+import java.awt.Container;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.ResultSet;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextArea;
+
+
+
+import ConexionBD.ConexionMysql;
+/**
+ * 
+ * @author stephaniie
+ *
+ */
+public final class VtnMensajePull extends JFrame implements ActionListener {
+
+	public static final VtnMensajePull smspull=new VtnMensajePull();
+	
+	 private JButton btnGuardar;
+	 private JTextArea mensaje;
+	 private Container c=getContentPane();
+	 private Statement sentencia;
+	 private ResultSet resultado;
+	 private Connection Conexion;
+	  String sms;
+	
+	 
+	 public VtnMensajePull() {
+		super.setTitle("Mensaje en pull");
+		super.setSize(400,400);
+		super.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		cargarControles();
+		
+	}
+	 
+	private void cargarControles() {
+		 c.setLayout(null);
+		 
+		//CREAR ETIQUETA Y CAMBIAR ATRIBUTOS     
+		 mensaje=new JTextArea("Escribe tu sms");           
+		 mensaje.setBounds(30,20,300,250);        
+		 c.add(mensaje);
+		 
+		 btnGuardar  =  new JButton ("Guardar");                
+		 btnGuardar.setBounds(120,310,100,30);
+		 c.add(btnGuardar);                   
+		 setVisible(true); 
+		 btnGuardar.addActionListener(this);
+	}
+	
+
+	public void actionPerformed(ActionEvent arg0) {
+		 sms=mensaje.getText();
+		
+		
+		
+	}
+	
+	public int insertarsms(){
+		ConexionMysql=objConexion.sentencia=cadenaConexion.createStatement();
+		String sql="insert into usuariopull values(null,'"+sms+"' );";
+	}
+	
+	
+	
+	
+	public static VtnMensajePull instanciaSingleton(){
+		
+		return smspull;
+	}
+	
+
+}
