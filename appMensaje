@@ -1,0 +1,22 @@
+import ConexionBD.ConexionMysql;
+
+import Vista.VtnLoginSingleton;
+import Vista.VtnMensajePull;
+
+/**
+ * 
+ * @author stephaniie
+ *
+ */
+public class AppMesajePull {
+
+	public static void main(String[] args) {
+		
+	ConexionMysql s1=ConexionMysql.instanciaSingleton();
+	s1.getConnetion();
+	
+	
+
+	}
+
+}
