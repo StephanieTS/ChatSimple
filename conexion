@@ -1,0 +1,56 @@
+package ConexionBD;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+import javax.swing.JOptionPane;
+/**
+ * 
+ * @author stephaniie
+ *
+ */
+public final class ConexionMysql {
+	
+	private static final ConexionMysql singletonconex= new ConexionMysql();
+	
+	private String nombreBD;//nombre que se le dara a la BD
+	private String nombreUsuario;//el usuario , que por default en mysql es root
+	private String password;//password que se usara en la conexion en la base de datos
+	private String url;//la direccion en donde se encuentra la BD
+
+	private ConexionMysql(){
+		
+		nombreBD="mensaje_pull";
+		nombreUsuario="root"; 
+		password=null;
+		url="jdbc:mysql://localhost/"+nombreBD;
+	}
+public Connection getConnetion(){//metodo que conectara la BD
+		
+		try {
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			Connection cadenaConexion=DriverManager.getConnection(url,nombreUsuario,password);
+			JOptionPane.showMessageDialog(null,"Se realizo la conexion con la Base de Datos");
+			return cadenaConexion;
+			
+		} catch (ClassNotFoundException e) {//si no se conecta con mssql
+			JOptionPane.showMessageDialog(null,"No se encontro la clase Driver","Error",JOptionPane.ERROR_MESSAGE);
+				
+		} catch (SQLException e) {//si no se conecta con la BD
+			JOptionPane.showMessageDialog(null,"No se conecto con la BD","Error",JOptionPane.ERROR_MESSAGE);
+			
+		} catch (InstantiationException e) {//hacer una conexion , si no hace la conexion
+			JOptionPane.showMessageDialog(null,"No se pudo instanciar la clase","Error",JOptionPane.ERROR_MESSAGE);
+						
+		} catch (IllegalAccessException e) {//aaceso no permitido a la base de datos
+			JOptionPane.showMessageDialog(null,"Acceso restringido a la BD","Error",JOptionPane.ERROR_MESSAGE);
+		}
+		return null;		
+	}
+
+public static ConexionMysql instanciaSingleton(){
+	return singletonconex;
+}
+	
+}
